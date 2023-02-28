@@ -1,0 +1,47 @@
+    // Starts // Explain what a callback function is and provide a simple example
+    const callBackExaample = (a, callback) => {
+        a.push(6);
+        callback();
+    }
+    let a = [1,2,3,4,5];
+
+    callBackExaample(a, function(){
+        console.log(a);
+    })
+    // Ends
+
+    // Given a string, reverse each word in the sentence
+    // For example "Welcome to this Javascript Guide!" should be become "emocleW ot siht tpircsavaJ !ediuG"
+    // Starts
+
+    const reverseString = (input) => {
+        let stringArray = input.split();
+        let reversedString = "";
+        let tempArray = [];
+        stringArray.forEach(element => {
+            tempArray.push(element.split("").reverse().join(""))
+        });
+        console.log(tempArray.toString());
+    }
+
+    reverseString("Hello Dixit");
+    // Ends
+
+    // How to check if an object is an array or not? Provide some code.
+    // Starts
+    // Method1 With using isArray
+
+    const isInputObject = (input) => {
+        console.log(Array.isArray(input));
+    }
+    isInputObject([1,2,3,4]);
+
+    // Method2 Without using isArray
+
+    const isInputObject1 = (input) => {
+        let str = JSON.stringify(input);
+        let type = str.split("").includes("[") ? "Array" : "Object";
+        console.log(type);
+    }
+    isInputObject1({"fn":"Dixit"});
+    // Ends

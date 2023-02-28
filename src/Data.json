@@ -1,0 +1,36 @@
+[{
+    "id": 1,
+    "first_name": "Pernell",
+    "last_name": "Face",
+    "email": "pface0@geocities.jp",
+    "gender": "Male",
+    "ip_address": "162.90.150.136"
+  }, {
+    "id": 2,
+    "first_name": "Chucho",
+    "last_name": "Nassey",
+    "email": "cnassey1@whitehouse.gov",
+    "gender": "Polygender",
+    "ip_address": "63.96.235.123"
+  }, {
+    "id": 3,
+    "first_name": "Orland",
+    "last_name": "Grange",
+    "email": "ogrange2@bizjournals.com",
+    "gender": "Male",
+    "ip_address": "58.127.50.123"
+  }, {
+    "id": 4,
+    "first_name": "Basil",
+    "last_name": "Raubheim",
+    "email": "braubheim3@umich.edu",
+    "gender": "Male",
+    "ip_address": "251.192.214.194"
+  }, {
+    "id": 5,
+    "first_name": "Keary",
+    "last_name": "Stenners",
+    "email": "kstenners4@shinystat.com",
+    "gender": "Male",
+    "ip_address": "204.139.37.148"
+  }]

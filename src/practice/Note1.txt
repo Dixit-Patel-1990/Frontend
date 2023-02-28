@@ -1,0 +1,3 @@
+there is no sting.reverse Method convert to array and reverse
+
+str.split("")  <==> [...str] 

@@ -1,0 +1,69 @@
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height:100vh;
+}
+
+.formclass{
+    width:400px;
+    height:500px;
+    background-color: rgba(100 , 100, 100, .8);
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+}
+
+@keyframes animate{
+    0%{
+        transform: rotateZ(0deg);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
+.formclass::before{
+    content: "";
+    position: absolute;
+    animation-name: animate;
+    animation-duration: 6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    background-image: conic-gradient(transparent, cyan, cyan);
+    z-index: 6;
+    width: 400px;
+    height:500px;
+    top:50%;
+    left:50%;
+    transform-origin: top left;
+}
+
+.formclass::after{
+    content: "";
+    position: absolute;
+    animation-name: animate;
+    animation-duration: 6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    background-image: conic-gradient(transparent, cyan, cyan);
+    z-index: 6;
+    width: 400px;
+    height:500px;
+    top:50%;
+    left:50%;
+    transform-origin: top left;
+    animation-delay: -3s;
+}
+
+
+.parent{
+    width:390px;
+    height:490px;
+    background-color: rgba(100 , 100, 100, 1);
+    position: absolute;
+    z-index: 9;
+    overflow: hidden;
+    top: 4px;
+    left:4px;
+}
