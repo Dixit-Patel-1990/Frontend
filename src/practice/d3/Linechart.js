@@ -1,38 +1,45 @@
 import "./Linechart.css";
 import { useRef, useEffect, useState } from "react";
-import { select } from "d3";
+import { select, line, axisBottom, scaleLinear, axisRight } from "d3";
 
 const Linechart = () => {
-  const [data, setData] = useState([5, 10, 15, 20, 27, 33]);
+  const [data, setData] = useState([50, 10, 150, 200, 27, 250, 100, 150]);
   const svgRef = useRef();
 
   useEffect(() => {
-    // console.log(svgRef);
     const svg = select(svgRef.current);
-    console.log(svg.selectAll("circles").data(data));
+    
+
+    const xScale = scaleLinear().domain([0, data.length-1]).range([0, 600])
+    const xAxis = axisBottom(xScale).ticks(data.length);
+    svg.select(".x-axis").style("transform", "translateY(300px)").call(xAxis)
+
+    const yScale = scaleLinear().domain([0, Math.max(250)]).range([300, 0]);
+    const yAxis = axisRight(yScale)
+    svg.select(".y-axis").style("transform", "translatex(600px)").call(yAxis)
+
+    
+
+    const myLine = line()
+                    .x((value, index)=> xScale(index))
+                    .y(value => yScale(value))
+
     svg
-      .selectAll("circle")
-      .data(data)
-      .join("circle")
-      .attr("r", val => val)  
-      .attr("cx", val => val * 2)
-      .attr("cy", val => val * 2)
-      .attr("stroke", "red")
-      .attr("fill", "none")
+    .selectAll("path")
+    .data([data])
+    .join("path")
+    .attr("d", value => myLine(value))
+    .attr("stroke", "blue")
+    .attr("fill", "none")
+    .style("transform", "translateY(-300px)")
   }, [data]);
 
   return (
     <>
-      <svg ref={svgRef}></svg>
-      <br />
-      <br />
-      <br />
-      <button onClick={() => setData(data.map(elem => elem + 2))}>
-        Size Double
-      </button>
-      <button onClick={() => setData(data.filter(elem => elem < 30))}>
-        Filter Cirles
-      </button>
+      <svg ref={svgRef}>
+        <g className="x-axis"/>
+        <g className="y-axis"/>
+      </svg>
     </>
   );
 };
