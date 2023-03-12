@@ -1,0 +1,108 @@
+:root{
+    --dark-orange: #DB6707;
+    --light-orange: #EED5BB;
+}
+
+.Container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.Card{
+    width: 300px;
+    height:500px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px var(--light-orange);
+    position: relative;
+    display: flex;
+}
+
+.Card .Top{
+    position: absolute;
+    width:320px;
+    height: 250px;
+    top: 0 ;
+    left:-10px;
+}
+
+.Card .Top::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height:100%;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 50% 100%, 0% 90%);
+    background: linear-gradient(to right, var(--dark-orange), var(--light-orange));
+}
+
+
+.Card .Top .Price{
+    position: absolute;
+    width:100px;
+    height:100px;
+    background-color: white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: orange;
+    font-size: large;
+    border-radius: 50%;
+    transform: translate(110px, -50px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .2);
+}
+
+.Card .Top .Title, .Card .Top .Description{
+    position: relative;
+    text-align: center;
+    align-items: center;
+}
+.Card .Top .Title{
+    top:50px;
+    font-size: 30px;
+    color: #fff;
+}
+.Card .Top .Description{
+    top:20px;
+    padding: 20px;
+    color: #fff;
+    font-weight: 100;
+    line-height: 1.5rem;
+}
+
+ul li{
+    text-decoration: none;
+    list-style: none;
+}
+
+.Card .Middle{
+    position: absolute;
+    margin-top: 20px;
+    top:230px;
+    left: -18px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.Card .Middle .Items{
+    line-height: 32px;
+    font-size: 1rem;
+}
+
+.Card .Bottom button{
+    position: absolute;
+    width:150px;
+    height: 40px;
+    top:482px;
+    left: 80px;
+    border-radius: 10px;
+    background: linear-gradient(to right, var(--dark-orange), var(--light-orange));
+    border: none;
+    color: #fff;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, .2);
+}
+
+
