@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, {Component, PureComponent} from "react";
 import ReactMemoChild from "./ReactMemoChild";
 
-class ReactMemoParent extends Component{
+class ReactMemoParent extends PureComponent{
 
     constructor(props){
         super(props);

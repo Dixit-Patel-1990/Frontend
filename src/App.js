@@ -8,6 +8,7 @@ import ReactMemoParent from "./Components/ReactMemo/ReactMemoParent";
 function App() {
   return (
       <div className="App">
+        learn react
         {/* <ErrorBoundryExample /> */}
         {/* <Navigation /> */}
 
