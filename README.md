@@ -87,8 +87,13 @@ docker run -it dixitpatel1008/frontend npm run test
 
 It will run all the exisiting test cases. If we add or remove tests it will not update number of tests in realtime because we have created specific container to run test cases by running above two commands that does not have "docker volume setup". So to update the test results in realtime as we add or remove tests we have two ways 
 
-    1. Setup container inside docker-compose.yml that essentially runs out tests with "docker  volume" setup so that anytime we update test cases it will reload.
-    2. Run "docker-compose up" than open new terminal window than run "docker ps" to get running containers and to pass additional commands to running containers use "docker exec -it dixitpatel1008/frontend npm run test" this will give you relatime update without "docker volume" setup.
+    1. Setup container inside docker-compose.yml that essentially runs our test cases with "docker  volume" setup so that anytime we update test cases it will reload. use command "docker-compose up --build" to run all containers
+
+    - There is a downside to this approach. we can not pass additional commands to our terminal to run specific test cases.
+
+    2. Run "docker-compose up" than open new terminal window than run "docker ps" to get running containers and to pass additional commands to running container use "docker exec -it <container_id_from_docker_ps> npm run test" this will give you relatime update without "docker volume" setup.
+
+    - Downside to this approach is we need to remember commands and procedure.
 
 ## Authors
 - [@Dixit Patel](https://github.com/Dixit-Patel-1990/Docker)
