@@ -35,44 +35,30 @@ pipeline {
             }
         }
 
-        // stage('Deploy to Elastic Beanstalk') {
-        //     steps {
-        //         script {
-        //             // Install AWS Elastic Beanstalk CLI if not already installed
-        //             sh 'pip install awsebcli --upgrade --user'
-                    
-        //             // Configure AWS CLI with credentials and region
-        //             sh "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} aws configure set region ${AWS_REGION}"
-                    
-        //             // Deploy to Elastic Beanstalk
-        //             sh "eb deploy ${EB_ENV_NAME} --staged --debug"
-        //         }
-        //     }
-        // }
+        stage('Deploy to Elastic Beanstalk') {
+            steps {
+                    // Use withCredentials to access AWS credentials securely
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        credentialsId: 'AWS_USER',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
+                    ]]) {
+                        // AWS credentials are now available in this block
 
+                        // Install AWS Elastic Beanstalk CLI if not already installed
+                        sh 'pip install awsebcli --upgrade --user'
+                        
+                        // Configure AWS CLI with credentials and region
+                        sh "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} aws configure set region ${AWS_REGION}"
+                        
+                        // Deploy to Elastic Beanstalk
+                        sh "eb deploy ${EB_ENV_NAME} --staged --debug"
 
-        steps {
-                // Use withCredentials to access AWS credentials securely
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    credentialsId: 'AWS_USER',
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-                ]]) {
-                    // AWS credentials are now available in this block
-
-                    // Install AWS Elastic Beanstalk CLI if not already installed
-                    sh 'pip install awsebcli --upgrade --user'
-                    
-                    // Configure AWS CLI with credentials and region
-                    sh "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} aws configure set region ${AWS_REGION}"
-                    
-                    // Deploy to Elastic Beanstalk
-                    sh "eb deploy ${EB_ENV_NAME} --staged --debug"
-
-                    // Continue with AWS CLI commands or other steps that require AWS credentials
-                }
+                        // Continue with AWS CLI commands or other steps that require AWS credentials
+                    }
             }
+        }
         
     }
 }
