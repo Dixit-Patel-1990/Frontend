@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'docker' 
+    }
 
     environment {
         // Set your AWS credentials and region
@@ -59,6 +61,7 @@ pipeline {
                     }
             }
         }
-        
     }
+        
 }
+
