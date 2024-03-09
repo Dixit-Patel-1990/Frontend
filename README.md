@@ -38,7 +38,7 @@ In the command above we are doing two things,
 
 #### 5. Run the app on localhost:3000 by starting the docker container through following command,
 ```cmd
-docker run -p 3000:3000 dixitpatel1008/frontend
+docker run -p 3000:3000 -it dixitpatel1008/frontend
 ```
 
 In this command we are mapping port inside container(right side of colon) to the outside port(your localhost(leftside of colon))
