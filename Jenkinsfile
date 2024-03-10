@@ -50,8 +50,8 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', credentialsId: env.AWS_EB_CREDENTIALS_ID]]) {
 
                         // Install AWS Elastic Beanstalk CLI
-                        sh "pip3 install awscli --upgrade --user"
-                        sh "pip3 install awsebcli --upgrade --user"
+                        sh "brew install awscli --upgrade --user"
+                        sh "brew install awsebcli --upgrade --user"
 
                         sh "eb init -r us-west-1 -a simple-web -e Simple-web-env"
                         sh "eb create Simple-web-env --region us-west-1 --source s3://elasticbeanstalk-us-west-1-328079970834/elastic-bean-stalk-container"
