@@ -11,6 +11,15 @@ pipeline {
     }
 
     stages {
+         stage('Install Python') {
+            steps {
+                script {
+                    sh 'yum install -y python3'
+                    sh 'curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py --user'
+                }
+            }
+        }
+
         stage("Checkout") {
             steps {
                   git(
@@ -34,10 +43,18 @@ pipeline {
                  sh "docker push dixitpatel1008/docker-web-app:${BUILD_NUMBER}"
             }
         }
+
         stage('Deploy to Elastic Beanstalk') {
             steps {
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', credentialsId: env.AWS_EB_CREDENTIALS_ID]]) {
+                        
+                         // Add AWS CLI to the PATH
+                        sh "export PATH=~/.local/bin:$PATH"
+
+                        // Install AWS Elastic Beanstalk CLI
+                        sh "pip3 install awscli --upgrade --user"
+                        sh "pip3 install awsebcli --upgrade --user"
                         
                         sh "eb init -r us-west-1 -a simple-web -e Simple-web-env"
                         sh "eb create Simple-web-env --region us-west-1 --source s3://elasticbeanstalk-us-west-1-328079970834/elastic-bean-stalk-container"
