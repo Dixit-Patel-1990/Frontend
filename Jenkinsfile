@@ -39,21 +39,24 @@ pipeline {
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', credentialsId: env.AWS_EB_CREDENTIALS_ID]]) {
                         
-                        def ebDeploy = [
-                            $class: 'AWSEBDeployment',
-                            accessKey: env.AWS_ACCESS_KEY_ID,
-                            secretKey: env.AWS_SECRET_ACCESS_KEY,
-                            region: 'us-west-1',
-                            applicationName: 'simple-web',
-                            environmentName: 'Simple-web-env',
-                            sourceBundle: [
-                                s3Bucket: 'elasticbeanstalk-us-west-1-328079970834',
-                                s3Key: 'elastic-bean-stalk-container'
-                            ]
-                        ]
+                        sh "eb init -r us-west-1 -a simple-web -e Simple-web-env"
+                        sh "eb create Simple-web-env --region us-west-1 --source s3://elasticbeanstalk-us-west-1-328079970834/elastic-bean-stalk-container"
+                        
+                        // def ebDeploy = [
+                        //     $class: 'AWSEBDeployment',
+                        //     accessKey: env.AWS_ACCESS_KEY_ID,
+                        //     secretKey: env.AWS_SECRET_ACCESS_KEY,
+                        //     region: 'us-west-1',
+                        //     applicationName: 'simple-web',
+                        //     environmentName: 'Simple-web-env',
+                        //     sourceBundle: [
+                        //         s3Bucket: 'elasticbeanstalk-us-west-1-328079970834',
+                        //         s3Key: 'elastic-bean-stalk-container'
+                        //     ]
+                        // ]
 
-                        // Call the deploy() method on the ebDeploy object
-                        ebDeploy.deploy()
+                        // // Call the deploy() method on the ebDeploy object
+                        // ebDeploy.deploy()
                     }
                 }
             }
