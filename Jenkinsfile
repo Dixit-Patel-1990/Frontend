@@ -34,7 +34,6 @@ pipeline {
                  sh "docker push dixitpatel1008/docker-web-app:${BUILD_NUMBER}"
             }
         }
-
         stage('Deploy to Elastic Beanstalk') {
             steps {
                 script {
@@ -53,6 +52,7 @@ pipeline {
                             ]
                         ]
 
+                        // Call the deploy() method on the ebDeploy object
                         ebDeploy.deploy()
                     }
                 }
