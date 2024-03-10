@@ -53,7 +53,8 @@ pipeline {
                         sh "brew install awscli"
                         sh "brew install awsebcli"
 
-                        sh "eb init -r us-west-1 -a simple-web -e Simple-web-env"
+                        // sh "eb init -r us-west-1 -a simple-web -e Simple-web-env"
+                        sh 'eb init -a simple-web -e Simple-web-env'
                         sh "eb create Simple-web-env --region us-west-1 --source s3://elasticbeanstalk-us-west-1-328079970834/elastic-bean-stalk-container"
                         
                         // def ebDeploy = [
