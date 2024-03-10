@@ -12,17 +12,17 @@ pipeline {
         }
         stage("Create Build and Tag Image") {
             steps {
-                 sh "docker build -t dixitpatel1008/docker-web-app -f Dockerfile.dev ."
+                 sh "docker build -t dixitpatel1008/docker-web-app: ${BUILD_NUMBER} -f Dockerfile.dev ."
             }
         }
         stage("Run test cases") {
             steps {
-                 sh "docker run -e CI=true dixitpatel1008/docker-web-app npm run test"
+                 sh "docker run -e CI=true dixitpatel1008/docker-web-app: ${BUILD_NUMBER} npm run test"
             }
         }
         stage("Push Image to docker hub") {
             steps {
-                 sh "docker push dixitpatel1008/docker-web-app"
+                 sh "docker push dixitpatel1008/docker-web-app: ${BUILD_NUMBER}"
             }
         }
     }
