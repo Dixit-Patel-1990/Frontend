@@ -41,13 +41,11 @@ pipeline {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    credentialsId: 'AWS_USER',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
                 ]]) {
                     // AWS credentials are now available in this block
 
                     elasticBeanstalk(
-                        credentialsId: AWS_USER,
                         region: AWS_REGION,
                         applicationName: APPLICATION_NAME,
                         environmentName: EB_ENV_NAME,
