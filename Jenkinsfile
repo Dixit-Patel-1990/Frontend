@@ -2,7 +2,6 @@ pipeline {
     agent any
 
      environment {
-        PATH = "$PATH:/usr/local/bin"
         AWS_EB_CREDENTIALS_ID = 'AWS_INFO'
         AWS_EB_REGION = 'us-west-1'
         AWS_EB_APPLICATION_NAME = 'simple-web'
