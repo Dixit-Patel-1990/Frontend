@@ -14,7 +14,7 @@ pipeline {
          stage('Install Python') {
             steps {
                 script {
-                    sh 'yum install -y python3'
+                    sh 'brew install python3'
                     sh 'curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py --user'
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
                         // Install AWS Elastic Beanstalk CLI
                         sh "pip3 install awscli --upgrade --user"
                         sh "pip3 install awsebcli --upgrade --user"
-                        
+
                         sh "eb init -r us-west-1 -a simple-web -e Simple-web-env"
                         sh "eb create Simple-web-env --region us-west-1 --source s3://elasticbeanstalk-us-west-1-328079970834/elastic-bean-stalk-container"
                         
