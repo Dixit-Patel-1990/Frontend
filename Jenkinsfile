@@ -46,16 +46,14 @@ pipeline {
                 ]]) {
                     // AWS credentials are now available in this block
 
-                    // Install AWS Elastic Beanstalk CLI if not already installed
-                    sh 'pip install awsebcli --upgrade --user'
-                    
-                    // Configure AWS CLI with credentials and region
-                    sh "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} aws configure set region ${AWS_REGION}"
-                    
-                    // Deploy to Elastic Beanstalk
-                    sh "eb deploy ${EB_ENV_NAME} --staged --debug"
-
-                    // Continue with AWS CLI commands or other steps that require AWS credentials
+                    elasticBeanstalk(
+                        credentialsId: AWS_CREDENTIALS_ID,
+                        region: AWS_REGION,
+                        applicationName: APPLICATION_NAME,
+                        environmentName: EB_ENV_NAME,
+                        bucketType: 's3',
+                        bucketName: 'elasticbeanstalk-us-west-1-328079970834'
+                    )      
                 }
             }
         }
