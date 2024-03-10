@@ -47,7 +47,7 @@ pipeline {
                     // AWS credentials are now available in this block
 
                     elasticBeanstalk(
-                        credentialsId: AWS_CREDENTIALS_ID,
+                        credentialsId: AWS_USER,
                         region: AWS_REGION,
                         applicationName: APPLICATION_NAME,
                         environmentName: EB_ENV_NAME,
