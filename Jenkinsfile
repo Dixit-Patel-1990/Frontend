@@ -2,6 +2,7 @@ pipeline {
     agent any
 
      environment {
+        PATH = "/opt/homebrew/bin:$PATH"
         AWS_EB_CREDENTIALS_ID = 'AWS_INFO'
         AWS_EB_REGION = 'us-west-1'
         AWS_EB_APPLICATION_NAME = 'simple-web'
@@ -11,11 +12,10 @@ pipeline {
     }
 
     stages {
-         stage('Install Python') {
+        stage('Install Python') {
             steps {
                 script {
-                    sh 'brew install python3'
-                    sh 'curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py --user'
+                    sh '/opt/homebrew/bin/brew install python'
                 }
             }
         }
@@ -48,9 +48,6 @@ pipeline {
             steps {
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', credentialsId: env.AWS_EB_CREDENTIALS_ID]]) {
-                        
-                         // Add AWS CLI to the PATH
-                        sh "export PATH=~/.local/bin:$PATH"
 
                         // Install AWS Elastic Beanstalk CLI
                         sh "pip3 install awscli --upgrade --user"
