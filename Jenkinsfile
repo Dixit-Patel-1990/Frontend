@@ -47,7 +47,7 @@ pipeline {
         }
         stage("Push Image to docker hub") {
             steps {
-                 sh "docker push dixitpatel1008/docker-web-app:latest}"
+                 sh "docker push dixitpatel1008/docker-web-app:latest"
             }
         }
 
@@ -57,15 +57,15 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', credentialsId: env.AWS_EB_CREDENTIALS_ID]]) {
 
                         // Install AWS Elastic Beanstalk CLI
-                        sh "brew install awscli"
-                        sh "brew install awsebcli"
-                        sh 'aws configure set aws_secret_access_key ${AWS_ACCESS_KEY_ID}'
-                        sh 'aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}'
-                        sh 'aws configure set region us-west-1'
+                        // sh "brew install awscli"
+                        // sh "brew install awsebcli"
+                        sh '/opt/homebrew/bin/aws configure set aws_secret_access_key ${AWS_ACCESS_KEY_ID}'
+                        sh '/opt/homebrew/bin/aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}'
+                        sh '/opt/homebrew/bin/aws configure set region us-west-1'
                         sh 'zip -r $ZIP Dockerrun.aws.json'
-                        sh 'aws s3 cp $ZIP s3://$AWS_EB_S3_BUCKET/$ZIP'
-                        sh 'aws elasticbeanstalk create-application-version --application-name $AWS_EB_APPLICATION_NAME --version-label $BUILD_NUMBER --source-bundle S3Bucket=$AWS_EB_S3_BUCKET,S3Key=$ZIP'
-                        sh 'aws elasticbeanstalk update-environment --environment-name $AWS_EB_ENVIRONMENT_NAME --version-label $BUILD_NUMBER'
+                        sh '/opt/homebrew/bin/aws s3 cp $ZIP s3://$AWS_EB_S3_BUCKET/$ZIP'
+                        sh '/opt/homebrew/bin/aws elasticbeanstalk create-application-version --application-name $AWS_EB_APPLICATION_NAME --version-label $BUILD_NUMBER --source-bundle S3Bucket=$AWS_EB_S3_BUCKET,S3Key=$ZIP'
+                        sh '/opt/homebrew/bin/aws elasticbeanstalk update-environment --environment-name $AWS_EB_ENVIRONMENT_NAME --version-label $BUILD_NUMBER'
                         
 
                         //zip -r docker-web-app.63.zip Dockerfile
