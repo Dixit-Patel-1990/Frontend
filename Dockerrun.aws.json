@@ -1,0 +1,14 @@
+{
+    "AWSEBDockerrunVersion": "2",
+    "containerDefinitions": [{
+        "name": "docker-web-app",
+        "image": "dixitpatel1008/docker-web-app",
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 80,
+            "hostPort": 80
+          }
+        ]
+    }]
+  }
