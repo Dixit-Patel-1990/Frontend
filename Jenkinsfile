@@ -55,6 +55,7 @@ pipeline {
                         sh 'aws configure set aws_secret_access_key ${AWS_ACCESS_KEY_ID}'
                         sh 'aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}'
                         sh 'aws configure set region us-west-1'
+                        sh 'aws elasticbeanstalk create-application-version --application-name $AWS_EB_APPLICATION_NAME --version-label $BUILD_NUMBER --source-bundle S3Bucket=$AWS_EB_S3_BUCKET,S3Key=AWS_EB_S3_KEY'
                         sh 'aws elasticbeanstalk update-environment --environment-name $AWS_EB_ENVIRONMENT_NAME --version-label $BUILD_NUMBER'
                         
                     }
