@@ -60,7 +60,7 @@ pipeline {
                         sh 'aws configure set region us-west-1'
                         sh 'zip -r $ZIP Dockerfile'
                         sh 'aws s3 cp $ZIP s3://$AWS_EB_S3_BUCKET/$ZIP'
-                        sh 'aws elasticbeanstalk create-application-version --application-name $AWS_EB_APPLICATION_NAME --version-label $BUILD_NUMBER --source-bundle S3Bucket=$AWS_EB_S3_BUCKET,S3Key=AWS_EB_S3_KEY'
+                        sh 'aws elasticbeanstalk create-application-version --application-name $AWS_EB_APPLICATION_NAME --version-label $BUILD_NUMBER --source-bundle S3Bucket=$AWS_EB_S3_BUCKET,S3Key=$ZIP'
                         sh 'aws elasticbeanstalk update-environment --environment-name $AWS_EB_ENVIRONMENT_NAME --version-label $BUILD_NUMBER'
                         
                     }
