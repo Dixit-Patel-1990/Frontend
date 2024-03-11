@@ -36,13 +36,14 @@ pipeline {
         }
         stage("Create Build and Tag Image") {
             steps {
-                 sh "docker build -t dixitpatel1008/docker-web-app:latest -f Dockerfile.dev ."
+                //>  sh "docker build -t dixitpatel1008/docker-web-app:latest -f Dockerfile.dev ."
+                sh "docker build -t dixitpatel1008/docker-web-app:latest --platform linux/amd64 ."
                 //   sh "docker build -t dixitpatel1008/docker-web-app:${BUILD_NUMBER} -f Dockerfile.dev ."
             }
         }
         stage("Run test cases") {
             steps {
-                 sh "docker run -e CI=true dixitpatel1008/docker-web-app:latest npm run test"
+                sh "docker run -e CI=true dixitpatel1008/docker-web-app:latest npm run test"
             }
         }
         stage("Push Image to docker hub") {
