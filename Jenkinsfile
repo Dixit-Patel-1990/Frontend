@@ -10,18 +10,21 @@ pipeline {
         AWS_EB_S3_BUCKET = 'elasticbeanstalk-us-west-1-328079970834'
         AWS_EB_S3_KEY = 'elastic-bean-stalk-container'
 
-        VERSION="${BUILD_NUMBER}"
-        ZIP="docker-web-app.${BUILD_NUMBER}.zip"
+        // VERSION="${BUILD_NUMBER}"
+        // ZIP="docker-web-app.${BUILD_NUMBER}.zip"
+
+        VERSION="v1"
+        ZIP="docker-web-app.v1.zip"
     }
 
     stages {
-        stage('Install Python') {
-            steps {
-                script {
-                    sh '/opt/homebrew/bin/brew install python'
-                }
-            }
-        }
+        // stage('Install Python') {
+        //     steps {
+        //         script {
+        //             sh '/opt/homebrew/bin/brew install python'
+        //         }
+        //     }
+        // }
 
         stage("Checkout") {
             steps {
