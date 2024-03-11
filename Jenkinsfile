@@ -52,27 +52,11 @@ pipeline {
                         // Install AWS Elastic Beanstalk CLI
                         sh "brew install awscli"
                         sh "brew install awsebcli"
-
-                        // sh "eb init -r us-west-1 -a simple-web -e Simple-web-env"
-                        sh 'eb config set Simple-web-env -i DixitPatel1008/docker-web-app:latest'
-                        sh 'eb deploy'
-                        // sh "eb create Simple-web-env --region us-west-1 --source s3://elasticbeanstalk-us-west-1-328079970834/elastic-bean-stalk-container"
+                        sh 'aws configure set aws_secret_access_key ${AWS_ACCESS_KEY_ID}'
+                        sh 'aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}'
+                        sh 'aws configure set region us-west-1'
+                        sh 'aws elasticbeanstalk update-environment --environment-name $AWS_EB_ENVIRONMENT_NAME --version-label $BUILD_NUMBER'
                         
-                        // def ebDeploy = [
-                        //     $class: 'AWSEBDeployment',
-                        //     accessKey: env.AWS_ACCESS_KEY_ID,
-                        //     secretKey: env.AWS_SECRET_ACCESS_KEY,
-                        //     region: 'us-west-1',
-                        //     applicationName: 'simple-web',
-                        //     environmentName: 'Simple-web-env',
-                        //     sourceBundle: [
-                        //         s3Bucket: 'elasticbeanstalk-us-west-1-328079970834',
-                        //         s3Key: 'elastic-bean-stalk-container'
-                        //     ]
-                        // ]
-
-                        // // Call the deploy() method on the ebDeploy object
-                        // ebDeploy.deploy()
                     }
                 }
             }
