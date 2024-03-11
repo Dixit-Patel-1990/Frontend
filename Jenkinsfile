@@ -9,6 +9,9 @@ pipeline {
         AWS_EB_ENVIRONMENT_NAME = 'Simple-web-env'
         AWS_EB_S3_BUCKET = 'elasticbeanstalk-us-west-1-328079970834'
         AWS_EB_S3_KEY = 'elastic-bean-stalk-container'
+
+        VERSION=${BUILD_NUMBER}
+        ZIP="docker-web-app.${BUILD_NUMBER}.zip"
     }
 
     stages {
@@ -55,6 +58,8 @@ pipeline {
                         sh 'aws configure set aws_secret_access_key ${AWS_ACCESS_KEY_ID}'
                         sh 'aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}'
                         sh 'aws configure set region us-west-1'
+                        sh 'zip -r $ZIP Dockerfile'
+                        sh 'aws s3 cp $ZIP s3://$AWS_EB_S3_BUCKET/$ZIP'
                         sh 'aws elasticbeanstalk create-application-version --application-name $AWS_EB_APPLICATION_NAME --version-label $BUILD_NUMBER --source-bundle S3Bucket=$AWS_EB_S3_BUCKET,S3Key=AWS_EB_S3_KEY'
                         sh 'aws elasticbeanstalk update-environment --environment-name $AWS_EB_ENVIRONMENT_NAME --version-label $BUILD_NUMBER'
                         
