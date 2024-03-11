@@ -10,7 +10,7 @@ pipeline {
         AWS_EB_S3_BUCKET = 'elasticbeanstalk-us-west-1-328079970834'
         AWS_EB_S3_KEY = 'elastic-bean-stalk-container'
 
-        VERSION=${BUILD_NUMBER}
+        VERSION=$BUILD_NUMBER
         ZIP="docker-web-app.${BUILD_NUMBER}.zip"
     }
 
