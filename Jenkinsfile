@@ -63,6 +63,7 @@ pipeline {
                         sh '/opt/homebrew/bin/aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}'
                         sh '/opt/homebrew/bin/aws configure set region us-west-1'
                         sh 'zip -r $ZIP Dockerrun.aws.json'
+                        // sh 'zip -r $ZIP docker-compose.yml'
                         sh '/opt/homebrew/bin/aws s3 cp $ZIP s3://$AWS_EB_S3_BUCKET/$ZIP'
                         sh '/opt/homebrew/bin/aws elasticbeanstalk create-application-version --application-name $AWS_EB_APPLICATION_NAME --version-label $BUILD_NUMBER --source-bundle S3Bucket=$AWS_EB_S3_BUCKET,S3Key=$ZIP'
                         sh '/opt/homebrew/bin/aws elasticbeanstalk update-environment --environment-name $AWS_EB_ENVIRONMENT_NAME --version-label $BUILD_NUMBER'
